@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1638484725 source:c:\users\meyer\documents\code\adventofcode_2021\advent2021_puzzle_02_p1\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+
