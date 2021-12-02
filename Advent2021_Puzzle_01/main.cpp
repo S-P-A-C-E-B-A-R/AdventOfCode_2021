@@ -7,7 +7,9 @@
 // Line-separated numerical values are provided through an input file.
 // The program reads each value and compares it to the previous value.
 
-// Unoptimized Runtime of +1.2s with debug text and 0.031s without debug.
+
+// Runtime of 1.5s with debug text and 0.031s with cout and sprintf.
+// Runtime of 5.3s with debug text and 0.031s with printf.
 
 // Essential Libraries
 #include <fstream>
@@ -24,7 +26,7 @@ int main ( int argc, char *argv[] )
     //     2 - Verify Second Argument can be opened
     if (argc != 2)
     {
-        cout << "Usage Error!\nExample: Program.exe -i Source.txt";
+        printf("Usage Error!\nExample: Program.exe -i Source.txt");
         return 0;
     }
     else
@@ -35,7 +37,7 @@ int main ( int argc, char *argv[] )
         // Check if file opened successfully
         if (!InputSource.is_open())
         {
-            cout << "Usage Error!\nInput Source (" << argv[1] << ") failed to open!";
+            printf("Usage Error!\nInput Source ( %s) failed to open!", argv[1]);;
             return 0;
         }
 
@@ -43,14 +45,14 @@ int main ( int argc, char *argv[] )
         else
         {
             // Report Success
-            cout << "Input Source (" << argv[1] << ") opened!\n";
+            printf("Input Source (%s) opened!\n", argv[1]);
 
             // Prepare Result Variables
-            char output[40];
             int  cntLines = 0;
             int  cntInc   = 0;
             int  former   = 0;
             int  latter   = 0;
+            bool check    = false;
 
             // Executes String Allocation
             // Executes Loop until no lines left.
@@ -64,7 +66,7 @@ int main ( int argc, char *argv[] )
                     if ( !(convert >> latter) )
                     {
                         // If there is an error, full stop.
-                        cerr << "Failure to convert str to int";
+                        printf("Failure to convert str to int");
                         return 0;
                     }
                 }
@@ -77,33 +79,39 @@ int main ( int argc, char *argv[] )
                     if ( !(convert >> latter) )
                     {
                         // If there is an error, full stop.
-                        cerr << "Failure to convert str to int";
+                        printf("Failure to convert str to int");
                         return 0;
                     }
 
                     // Check if the new value is larger than the previous one
                     if (latter > former){
                         cntInc++;
+                        check = true;
                     }
 
                 }
 
                 // Report Findings
-                /*
                 cntLines++;
+                /*
                 if (cntLines == 1){
-                    sprintf(output, "[%4d,%4d] First Value = %d\n",cntLines,cntInc, latter);
+                    printf("[%4d,%4d] First Value = %d\n",cntLines,cntInc, latter);
                 }
                 else
                 {
-                    sprintf(output, "[%4d,%4d] %4d > %4d ", cntLines, cntInc, former, latter);
+                    printf("[%4d,%4d] %4d > %4d =", cntLines, cntInc, former, latter);
+                    if (check){
+                        printf(" T\n");
+                        check = false;
+                    }
+                    else
+                    {
+                        printf(" F\n");
+                    }
                 }
-                cout << output << "\n";
                 */
-
             }
-            sprintf(output, "%4d entries processed with %4d sequentially increasing values.", cntLines, cntInc);
-            cout << "\n" << output << "\n";
+            printf("%4d entries processed with %4d sequentially increasing values.", cntLines, cntInc);
             return 1;
         }
     }
