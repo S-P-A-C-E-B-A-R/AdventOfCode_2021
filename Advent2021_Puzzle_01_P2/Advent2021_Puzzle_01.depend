@@ -1,0 +1,16 @@
+# depslib dependency file v1.0
+1638466276 source:c:\users\meyer\documents\advent of code\advent2021_puzzle_01\main.cpp
+	<fstream>
+	<iostream>
+	<sstream>
+
+1638467515 source:c:\users\meyer\documents\code\adventofcode_2021\advent2021_puzzle_01\main.cpp
+	<fstream>
+	<iostream>
+	<sstream>
+
+1638477907 source:c:\users\meyer\documents\code\adventofcode_2021\advent2021_puzzle_01_p2\main.cpp
+	<fstream>
+	<iostream>
+	<sstream>
+

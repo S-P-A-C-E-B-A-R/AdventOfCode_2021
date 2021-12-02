@@ -1,8 +1,8 @@
-// Advent2021_Puzzle_01
+// Advent2021_Puzzle_01_P1
 // Modified On: 12/01/2021
 // Modified By: Kenneth Meyerson
 
-// Use: ProgramName.exe -i "InputText.txt"
+// Use: ProgramName.exe "InputText.txt"
 // This program compares two numbers and increments a counter.
 // Line-separated numerical values are provided through an input file.
 // The program reads each value and compares it to the previous value.
@@ -26,7 +26,7 @@ int main ( int argc, char *argv[] )
     //     2 - Verify Second Argument can be opened
     if (argc != 2)
     {
-        printf("Usage Error!\nExample: Program.exe -i Source.txt");
+        printf("Usage Error!\nExample: Program.exe Source.txt");
         return 0;
     }
     else

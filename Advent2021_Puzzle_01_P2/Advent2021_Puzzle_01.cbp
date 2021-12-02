@@ -2,7 +2,7 @@
 <CodeBlocks_project_file>
 	<FileVersion major="1" minor="6" />
 	<Project>
-		<Option title="Advent2021_Puzzle_01" />
+		<Option title="Advent2021_Puzzle_01_P2" />
 		<Option pch_mode="2" />
 		<Option compiler="gcc" />
 		<Build>
@@ -11,6 +11,7 @@
 				<Option object_output="obj/Release/" />
 				<Option type="1" />
 				<Option compiler="gcc" />
+				<Option parameters="Advent2021_Input_01.txt " />
 				<Compiler>
 					<Add option="-O2" />
 				</Compiler>
