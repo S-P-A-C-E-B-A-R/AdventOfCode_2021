@@ -10,9 +10,46 @@
 #include <stdlib.h>
 #include <string.h>
 
+#define MAX 14
+
+// Recursive Power2
+int power2(int a) {
+    return (a != 0) ? (2 * power2(a - 1)) : 1;
+}
+
+// Hacky Binary Conversion
+int binaryArrtoDec(int arr[])
+{
+    // Print the Array
+    printf("[%d%d%d%d%d%d%d%d%d%d%d%d]\n",
+           arr[0],
+           arr[1],
+           arr[2],
+           arr[3],
+           arr[4],
+           arr[5],
+           arr[6],
+           arr[7],
+           arr[8],
+           arr[9],
+           arr[10],
+           arr[11]);
+
+    // Sum the Binary Values
+    int n = 0;
+    for (int i = 0; i <= MAX-3; i++)
+    {
+        printf("[%2d] n = %4d +", i,n);
+        n += arr[i]*power2(11-i);
+        printf (" %d*(2^%2d)\n",arr[i],(11-i));
+    }
+
+    return n;
+}
+
 int main( int argc, char *argv[] )  {
 
-    // Verify Program Use
+    // Verify Program Us
     if( argc == 2 ) {
 
         // Attempt to Open File
@@ -23,26 +60,77 @@ int main( int argc, char *argv[] )  {
         }
 
         // Track number of "1" in each position.
+        const char One = 49;
         int BitVecArray[12] = {0};
         int Gamma = 0;
         int Epsilon = 0;
 
         // Read contents of file.
-        #define MAX 12
         char str[MAX];
-        int  num;
         int  cntLines = 0;
 
-        while (fgets (str, 60, fptr))
+        while (fgets (str, MAX, fptr))
         {
-            cntLines++;
-            // Report Line Count
-            printf("[%4d] ",cntLines);
+            // Clean Line Garbage
+            str[strcspn(str, "\n")] = 0;
 
-            // Report Result
-            printf("%s",str);
+            // Parse Result
+            for (int i = 0; i < MAX; i++)
+            {
+                // Check if current position is 1
+                //printf("%d == %d\n", str[i], One);
+                if (str[i] == One)
+                {
+                    BitVecArray[i]++;
+                }
+            }
+
+            // Debug Line Result
+            cntLines++;
+            printf("[%4d](%s) => [%3d,%3d,%3d,%3d,%3d,%3d,%3d,%3d,%3d,%3d,%3d,%3d]\n",
+                   cntLines,
+                   str,
+                   BitVecArray[0],
+                   BitVecArray[1],
+                   BitVecArray[2],
+                   BitVecArray[3],
+                   BitVecArray[4],
+                   BitVecArray[5],
+                   BitVecArray[6],
+                   BitVecArray[7],
+                   BitVecArray[8],
+                   BitVecArray[9],
+                   BitVecArray[10],
+                   BitVecArray[11]);
         }
         fclose(fptr);
+
+        // Process Results
+        for (int i = 0; i < MAX; i++)
+        {
+            // If the index is greater than half of the values, then it is the most
+            // common bit. Therefore, a "1" is assigned to that position.
+            (BitVecArray[i] > (cntLines/2)) ? (BitVecArray[i] = 1) : (BitVecArray[i] = 0);
+        }
+
+        // Calculate Gamma
+        printf("Gamma (Most Common Bits): ");
+        Gamma   = binaryArrtoDec(BitVecArray);
+        printf("Decimal: %d\n",Gamma);
+
+        // Hacky "BitFlip" on an array
+        for (int i = 0; i < MAX; i++)
+        {
+            (BitVecArray[i] == 0) ? (BitVecArray[i] = 1) : (BitVecArray[i] = 0);
+        }
+
+        // Calculate Epsilon
+        printf("Epsilon (Least Common Bits): ");
+        Epsilon = binaryArrtoDec(BitVecArray);
+        printf("Decimal: %d\n",Epsilon);
+
+        // Calculate Final
+        printf("\nPart 1: Gamma * Epsilon = %d", Gamma*Epsilon);
     }
     else if( argc > 2 ) {
        printf("Too many arguments supplied. Expected \"Program.exe Source.txt\"\n");
@@ -50,7 +138,5 @@ int main( int argc, char *argv[] )  {
     else {
        printf("One argument expected: \"Program.exe Source.txt\"\n");
     }
-
-    printf("\nPart 1: Gamma * Epsilon = %d", 0);
     return 0;
  }
